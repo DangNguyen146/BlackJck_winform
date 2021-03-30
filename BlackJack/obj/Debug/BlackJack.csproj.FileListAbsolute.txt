@@ -1,0 +1,13 @@
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\bin\Debug\BlackJack.exe.config
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\bin\Debug\BlackJack.exe
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\bin\Debug\BlackJack.pdb
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\bin\Debug\MaterialSkin.dll
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.csprojAssemblyReference.cache
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.Form1.resources
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.cache
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.CoreCompileInputs.cache
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.CopyComplete
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.exe
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.SinglePlay.resources
