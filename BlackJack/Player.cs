@@ -26,31 +26,18 @@ namespace BlackJack
         {
             this.loaiNguoi = a;
         }
-        public int getNumberCard()
+       
+        public int getNumberCard(int i=0)
         {
-            if (numberOfCard == 5)
-            {
-                return -1;
-            }
-            numberOfCard++;
+            numberOfCard += i;
             return numberOfCard;
         }
         public void addCard(Card temp)
         {
             cards.Add(temp);
         }
-        public int sum()
-        {
-            int sum = 0;
-            foreach (Card c in cards)
-            {
-                if(c.getIdCard().Substring(0, c.getIdCard().Length == 2 ? 1 : 2) !="1")
-                    sum += c.getValue();
-            }
-            Sum = sum;
-            return sum;
-        }
-        public int sumCom()
+    
+        public int getSum()
         {
             int sum = 0;
             foreach (Card c in cards)
@@ -59,11 +46,12 @@ namespace BlackJack
                     sum += c.getValue();
             }
             Sum = sum;
-            return sum;
+            return Sum;
         }
-        public int getSum(int a=0)
+        public int getSum(int a)
         {
-            return Sum+a;
+            Sum += a;
+            return Sum;
         }
     }
 }

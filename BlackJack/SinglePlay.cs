@@ -37,33 +37,33 @@ namespace BlackJack
 
             card = boBai.getCard();
             com.addCard(card);
-            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard());
+            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
             Thread.Sleep(100);
 
             card = boBai.getCard();
             user.addCard(card);
-            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard());
+            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard(1));
             Thread.Sleep(100);
 
             card = boBai.getCard();
             com.addCard(card);
-            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard());
+            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
             Thread.Sleep(100);
 
             card = boBai.getCard();
             user.addCard(card);
-            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard());
+            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard(1));
             Thread.Sleep(100);
 
             btnRut.Visible = true;
             btnDan.Visible = true;
 
-            label2.Text = (user.sum()).ToString();
+            label2.Text = (user.getSum()).ToString();
             label2.Visible = true;
         }
         private void btnRut_Click_1(object sender, EventArgs e)
         {
-            if (com.getNumberCard() == 5)
+            if (user.getNumberCard() == 4)
             {
                 btnRut.Enabled = false;
                 btnRut.Visible = false;
@@ -72,28 +72,28 @@ namespace BlackJack
             card = boBai.getCard();
 
             user.addCard(card);
-            label2.Text = (user.sum()).ToString();
+            label2.Text = (user.getSum()).ToString();
 
-            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard());
+            DrawCard(card, user.getLoaiNguoi(), user.getNumberCard(1));
         }
 
         private void btnDan_Click_1(object sender, EventArgs e)
         {
             btnRut.Visible = false;
             btnDan.Visible = false;
-            while (com.sum() <= 16)
+            while (com.getSum() <= 16)
             {
                 Card card = new Card();
 
                 card = boBai.getCard();
                 com.addCard(card);
-                DrawCard(card, com.getLoaiNguoi(), com.getNumberCard());
-                if (com.sumCom() <= 16 && card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
+                if (com.getSum() <= 16 && card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
                 {
                     com.getSum(1);
                 }
             }
-            KetQua(com.getSum(), user.getSum(), com.getNumberCard(), user.getNumberCard()); ;
+            KetQua(com.getSum(0), user.getSum(0), com.getNumberCard(), user.getNumberCard()); ;
             this.Close();
         }
 
@@ -345,8 +345,8 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 1;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            
+            label2.Text = (user.getSum(1)).ToString();
             radioButton1.Visible = false;
             radioButton2.Visible = false;
         }
@@ -355,8 +355,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 11;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(11)).ToString();
             radioButton1.Visible = false;
             radioButton2.Visible = false;
         }
@@ -365,8 +364,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 1;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(1)).ToString();
             radioButton3.Visible = false;
             radioButton4.Visible = false;
         }
@@ -375,8 +373,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 11;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(11)).ToString();
             radioButton3.Visible = false;
             radioButton4.Visible = false;
         }
@@ -385,8 +382,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 1;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(1)).ToString();
             radioButton5.Visible = false;
             radioButton6.Visible = false;
         }
@@ -395,8 +391,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 11;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(11)).ToString();
             radioButton5.Visible = false;
             radioButton6.Visible = false;
         }
@@ -405,8 +400,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 1;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(1)).ToString();
             radioButton7.Visible = false;
             radioButton8.Visible = false;
         }
@@ -415,8 +409,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 11;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(11)).ToString();
             radioButton7.Visible = false;
             radioButton8.Visible = false;
         }
@@ -425,8 +418,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 1;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(1)).ToString();
             radioButton9.Visible = false;
             radioButton10.Visible = false;
         }
@@ -435,8 +427,7 @@ namespace BlackJack
         {
             int temp = int.Parse(label2.Text.Trim());
             temp += 11;
-            user.getSum(temp);
-            label2.Text = temp.ToString();
+            label2.Text = (user.getSum(11)).ToString();
             radioButton9.Visible = false;
             radioButton10.Visible = false;
         }
@@ -444,12 +435,13 @@ namespace BlackJack
        
         public void KetQua(int com, int user, int numCom, int numUser)
         {
-            if(numCom==5 && numUser==5)
+            if(numCom==5 && numUser==5 && com<=21 && user<=21)
                 MessageBox.Show("Hòa");
-            else if (numCom == 5 && numUser != 5)
+            else if (numCom == 5 && numUser != 5 &&com<=21)
                 MessageBox.Show("Bạn đã thua");
-            else if (numCom != 5 && numUser == 5)
+            else if (numCom != 5 && numUser == 5 &&user<=21)
                 MessageBox.Show("Bạn thắng");
+
             else if (com == 21 && user != 21)
                 MessageBox.Show("Bạn đã thua");
             else if (com != 21 && user == 21)
@@ -458,6 +450,7 @@ namespace BlackJack
                 MessageBox.Show("Hòa");
             else if (com>21 && user<21)
                 MessageBox.Show("Bạn thắng");
+
             else if (21 >= com && 21 >= user && com < user)
                 MessageBox.Show("Bạn thắng");
             else if (com<21 && user>21)
