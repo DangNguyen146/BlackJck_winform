@@ -11,3 +11,6 @@ F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJac
 F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.exe
 F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
 F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.SinglePlay.resources
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.MainMutiplayer.resources
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.Multi_Client.resources
+F:\UIT_HK2\LapTrinhMangCanBan\BlackJackv2\BlackJack\BlackJack\obj\Debug\BlackJack.Muti_Server.resources

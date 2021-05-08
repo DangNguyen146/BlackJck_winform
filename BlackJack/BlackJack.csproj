@@ -57,6 +57,27 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainMutiplayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMutiplayer.Designer.cs">
+      <DependentUpon>MainMutiplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Multi_Client.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Multi_Client.Designer.cs">
+      <DependentUpon>Multi_Client.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Muti_Server.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Muti_Server.Designer.cs">
+      <DependentUpon>Muti_Server.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pictureMoving.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +89,15 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMutiplayer.resx">
+      <DependentUpon>MainMutiplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Multi_Client.resx">
+      <DependentUpon>Multi_Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Muti_Server.resx">
+      <DependentUpon>Muti_Server.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

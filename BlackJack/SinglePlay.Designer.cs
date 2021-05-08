@@ -391,6 +391,7 @@
             this.Controls.Add(this.label2);
             this.Name = "SinglePlay";
             this.Text = "SinglePlay";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SinglePlay_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

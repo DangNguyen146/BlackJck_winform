@@ -70,5 +70,9 @@ namespace BlackJack
             this.removeListCards.Add(card);
             return card;
         }
+        public void resetRomeveList()
+        {
+            removeListCards.Clear();
+        }
     }
 }

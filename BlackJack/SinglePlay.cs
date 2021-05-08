@@ -35,9 +35,10 @@ namespace BlackJack
 
             Card card = new Card();
 
-            card = boBai.getCard();
-            com.addCard(card);
-            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
+            //card = boBai.getCard();
+            //com.addCard(card);
+            card = new Card();
+            DrawCard(card, com.getLoaiNguoi(), 1);
             Thread.Sleep(100);
 
             card = boBai.getCard();
@@ -45,9 +46,10 @@ namespace BlackJack
             DrawCard(card, user.getLoaiNguoi(), user.getNumberCard(1));
             Thread.Sleep(100);
 
-            card = boBai.getCard();
-            com.addCard(card);
-            DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
+            //card = boBai.getCard();
+            //com.addCard(card);
+            card = new Card();
+            DrawCard(card, com.getLoaiNguoi(), 2);
             Thread.Sleep(100);
 
             card = boBai.getCard();
@@ -56,10 +58,12 @@ namespace BlackJack
             Thread.Sleep(100);
 
             btnRut.Visible = true;
-            btnDan.Visible = true;
 
             label2.Text = (user.getSum()).ToString();
             label2.Visible = true;
+
+            if (Int32.Parse(label2.Text.Trim()) > 16)
+                btnDan.Visible = true;
         }
         private void btnRut_Click_1(object sender, EventArgs e)
         {
@@ -75,26 +79,27 @@ namespace BlackJack
             label2.Text = (user.getSum()).ToString();
 
             DrawCard(card, user.getLoaiNguoi(), user.getNumberCard(1));
+            if (Int32.Parse(label2.Text.Trim()) > 16)
+                btnDan.Visible = true;
         }
 
         private void btnDan_Click_1(object sender, EventArgs e)
         {
             btnRut.Visible = false;
             btnDan.Visible = false;
+            Card card = new Card();
+            DrawCard(card, 0, 0);
             while (com.getSum() <= 16)
             {
-                Card card = new Card();
-
                 card = boBai.getCard();
                 com.addCard(card);
-                DrawCard(card, com.getLoaiNguoi(), com.getNumberCard(1));
+                DrawCard(card, 0, com.getNumberCard(1));
                 if (com.getSum() <= 16 && card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
                 {
                     com.getSum(1);
                 }
             }
-            KetQua(com.getSum(0), user.getSum(0), com.getNumberCard(), user.getNumberCard()); ;
-            this.Close();
+            KetQua(com.getSum(0), user.getSum(0), com.getNumberCard(), user.getNumberCard());
         }
 
         private void DrawCard(Card card, int type, int num)
@@ -258,6 +263,9 @@ namespace BlackJack
                     break;
                 case "KB":
                     pb.Image = BlackJack.Properties.Resources.KB;
+                    break;
+                default:
+                    pb.Image = BlackJack.Properties.Resources.PP;
                     break;
             }
             if (type == 0)
@@ -461,6 +469,11 @@ namespace BlackJack
                 MessageBox.Show("Hòa");
         }
 
-       
+        private void SinglePlay_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form1 form1 = new Form1();
+            this.Hide();
+            form1.Show();
+        }
     }
 }

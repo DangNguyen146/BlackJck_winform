@@ -32,6 +32,19 @@ namespace BlackJack
         {
             SinglePlay singlePlay = new SinglePlay();
             singlePlay.Show();
+            this.Hide();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void materialRaisedButton2_Click(object sender, EventArgs e)
+        {
+            MainMutiplayer mainMutiplayer = new MainMutiplayer();
+            this.Hide();
+            mainMutiplayer.Show();
         }
     }
 }
