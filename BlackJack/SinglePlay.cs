@@ -497,6 +497,8 @@ namespace BlackJack
                 MessageBox.Show("Bạn đã thua");
             else if (21 >= com && 21 >= user && com == user)
                 MessageBox.Show("Hòa");
+
+            this.Close();
         }
 
         private void SinglePlay_FormClosed(object sender, FormClosedEventArgs e)

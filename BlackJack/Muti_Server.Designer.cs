@@ -34,9 +34,9 @@
             // listMess
             // 
             this.listMess.HideSelection = false;
-            this.listMess.Location = new System.Drawing.Point(29, 21);
+            this.listMess.Location = new System.Drawing.Point(235, 234);
             this.listMess.Name = "listMess";
-            this.listMess.Size = new System.Drawing.Size(734, 394);
+            this.listMess.Size = new System.Drawing.Size(503, 203);
             this.listMess.TabIndex = 0;
             this.listMess.UseCompatibleStateImageBehavior = false;
             this.listMess.View = System.Windows.Forms.View.List;
@@ -45,7 +45,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImage = global::BlackJack.Properties.Resources.FormMain_1x;
+            this.ClientSize = new System.Drawing.Size(969, 560);
             this.Controls.Add(this.listMess);
             this.Name = "Muti_Server";
             this.Text = "Muti_Server";

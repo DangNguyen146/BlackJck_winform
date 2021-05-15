@@ -38,7 +38,7 @@
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(446, 352);
+            this.btnSend.Location = new System.Drawing.Point(391, 548);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 11;
@@ -49,7 +49,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 338);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(120, 532);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 10;
@@ -58,7 +60,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 298);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(14, 532);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 9;
@@ -66,25 +70,25 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(12, 314);
+            this.txtName.Location = new System.Drawing.Point(12, 548);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 20);
             this.txtName.TabIndex = 8;
             // 
             // txtMess
             // 
-            this.txtMess.Location = new System.Drawing.Point(12, 354);
+            this.txtMess.Location = new System.Drawing.Point(118, 548);
             this.txtMess.Multiline = true;
             this.txtMess.Name = "txtMess";
-            this.txtMess.Size = new System.Drawing.Size(428, 20);
+            this.txtMess.Size = new System.Drawing.Size(262, 20);
             this.txtMess.TabIndex = 7;
             // 
             // listMess
             // 
             this.listMess.HideSelection = false;
-            this.listMess.Location = new System.Drawing.Point(12, 12);
+            this.listMess.Location = new System.Drawing.Point(12, 478);
             this.listMess.Name = "listMess";
-            this.listMess.Size = new System.Drawing.Size(500, 276);
+            this.listMess.Size = new System.Drawing.Size(262, 51);
             this.listMess.TabIndex = 6;
             this.listMess.UseCompatibleStateImageBehavior = false;
             this.listMess.View = System.Windows.Forms.View.List;
@@ -94,7 +98,8 @@
             this.AcceptButton = this.btnSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 393);
+            this.BackgroundImage = global::BlackJack.Properties.Resources.BackGround_Table_1x;
+            this.ClientSize = new System.Drawing.Size(972, 577);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

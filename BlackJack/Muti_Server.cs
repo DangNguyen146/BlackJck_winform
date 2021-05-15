@@ -28,6 +28,7 @@ namespace BlackJack
         IPEndPoint IP;
         Socket server;
         List<Socket> clientList;
+        int tempSL = 0;
         void Connect()
         {
             clientList = new List<Socket>();
@@ -47,8 +48,13 @@ namespace BlackJack
                         clientList.Add(client);
 
                         Thread receive = new Thread(Receive);
+                        
                         receive.IsBackground = true;
                         receive.Start(client);
+
+
+                        string IP = client.RemoteEndPoint.ToString();   //Hiển thị ip client
+                        AddMessage(IP);
                     }
                 }
                 catch
@@ -78,12 +84,44 @@ namespace BlackJack
                     client.Receive(data);
 
                     string message = Deserialize(data).ToString();
-
-                    foreach (Socket item in clientList)
+                    //0: start
+                    //1: Mess
+                    //2: wait
+                    //3: Duoc choi
+                    //4: Rut
+                    //5: Dan
+                    //6: Xet bai
+                    
+                    switch (message.Substring(0, 2))
                     {
-                        if (item != null && item != client)
-                            item.Send(Serialize(message));
+                        case "1:":
+                            tempSL++;
+                            if (tempSL == clientList.Count()){
+                                foreach (Socket item in clientList)
+                                {
+                                    if (item != null)
+                                    {
+                                        message = "Start";
+                                        item.Send(Serialize(message));
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
                     }
+                    //if (message.Substring(0, 2) == "1:")
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //    foreach (Socket item in clientList)
+                    //    {
+                    //        if (item != null && item != client)
+                    //            item.Send(Serialize(message));
+                    //    }
+                    //}
 
                     AddMessage(message);
                 }
@@ -122,6 +160,9 @@ namespace BlackJack
         private void Muti_Server_FormClosed(object sender, FormClosedEventArgs e)
         {
             Close();
+            SinglePlay singlePlay = new SinglePlay();
+            singlePlay.Show();
         }
+
     }
 }
