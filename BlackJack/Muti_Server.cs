@@ -20,15 +20,18 @@ namespace BlackJack
     {
         public Muti_Server()
         {
-            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
+            boBai = new BoBai();
             Connect();
         }
 
+        BoBai boBai;
         IPEndPoint IP;
         Socket server;
         List<Socket> clientList;
         int tempSL = 0;
+        int tempPlayer = 0;
         void Connect()
         {
             clientList = new List<Socket>();
@@ -43,6 +46,11 @@ namespace BlackJack
                 {
                     while (true)
                     {
+                        if (clientList.Count == 5)
+                        {
+                            AddMessage("Đã đạt số client tối đa".ToString());
+                            return;
+                        }
                         server.Listen(100);
                         Socket client = server.Accept();
                         clientList.Add(client);
@@ -86,27 +94,101 @@ namespace BlackJack
                     string message = Deserialize(data).ToString();
                     //0: start
                     //1: Mess
-                    //2: wait
-                    //3: Duoc choi
+                    //2: đợi
+                    //3: Đã rút
                     //4: Rut
                     //5: Dan
                     //6: Xet bai
+
+                    //7:Số lượng người chơi vidu: 7:20213 --->2 người chơi 1-> có 2 lá 2-> có 2 lá
+                    //8: Server hỏi client
+
+                    //9: nhà cái
                     
                     switch (message.Substring(0, 2))
                     {
-                        case "1:":
-                            tempSL++;
-                            if (tempSL == clientList.Count()){
-                                foreach (Socket item in clientList)
+                        case "0:":
+                            {
+                                tempSL++;
+                                if (tempSL == clientList.Count())
                                 {
-                                    if (item != null)
+                                    foreach (Socket item in clientList)
                                     {
-                                        message = "Start";
-                                        item.Send(Serialize(message));
+                                        if (item != null)
+                                        {
+                                            message = "0:Start";
+                                            AddMessage(item.RemoteEndPoint.ToString() + ": "+message);
+                                            item.Send(Serialize(message));
+                                        }
+                                        Thread.Sleep(200);
+                                    }
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        foreach (Socket item in clientList)
+                                        {
+                                            if (item != null)
+                                            {
+                                                Card card = new Card();
+                                                card = boBai.getCard();
+                                                AddMessage("4:" + card.getIdCard());
+                                                item.Send(Serialize("4:" + card.getIdCard()));
+                                            }
+                                            Thread.Sleep(200);
+                                        }
+                                    }
+                                    Thread.Sleep(200);
+                                    foreach (Socket item in clientList) //đợi
+                                    {
+                                        item.Send(Serialize("2:"));
+                                        Thread.Sleep(200);
                                     }
                                 }
+                                clientList[0].Send(Serialize("9: Bạn là cái ---> Rút cuoi")); /// thang 0 đc rút
+                              
+                                break;
                             }
-                            break;
+                        case "1:":
+                            {
+                                AddMessage(client.RemoteEndPoint.ToString() + ": " + message);
+                                foreach (Socket item in clientList)
+                                {
+                                    if (item != null && item != client)
+                                    {
+                                        item.Send(Serialize(message));
+                                    }
+                                    Thread.Sleep(200);
+                                }
+                                
+                                break;
+                            }
+                        case "4:":
+                            {
+                                AddMessage("4:" + client.RemoteEndPoint.ToString());
+                                
+                                foreach (Socket item in clientList)
+                                {
+                                    if (item != null && item == client)
+                                    {
+                                        Card card = new Card();
+                                        card = boBai.getCard();
+                                        AddMessage("4:" + card.getIdCard());
+                                        item.Send(Serialize("4:"+card.getIdCard()));
+                                    }
+                                    Thread.Sleep(200);
+                                }
+                                break;
+                            }
+                        case "5:":
+                            {
+                                AddMessage("5:" + client.RemoteEndPoint.ToString());
+                                Thread.Sleep(100);
+                                tempPlayer++;
+                                if (tempPlayer < clientList.Count())
+                                {
+                                    clientList[tempPlayer].Send(Serialize("3:"));
+                                }
+                                break;
+                            }
                         default:
                             break;
                     }
@@ -123,10 +205,11 @@ namespace BlackJack
                     //    }
                     //}
 
-                    AddMessage(message);
+                    //AddMessage(message);
                 }
                 catch
                 {
+                    MessageBox.Show("Erro");
                     clientList.Remove(client);
                     client.Close();
                 }

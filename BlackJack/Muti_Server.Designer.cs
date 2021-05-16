@@ -33,6 +33,7 @@
             // 
             // listMess
             // 
+            this.listMess.GridLines = true;
             this.listMess.HideSelection = false;
             this.listMess.Location = new System.Drawing.Point(235, 234);
             this.listMess.Name = "listMess";
