@@ -34,6 +34,7 @@
             // 
             // materialFlatButton1
             // 
+            this.materialFlatButton1.AutoSize = true;
             this.materialFlatButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialFlatButton1.Depth = 0;
             this.materialFlatButton1.Icon = null;
@@ -51,6 +52,7 @@
             // 
             // materialFlatButton2
             // 
+            this.materialFlatButton2.AutoSize = true;
             this.materialFlatButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialFlatButton2.Depth = 0;
             this.materialFlatButton2.Icon = null;
@@ -77,6 +79,7 @@
             this.Name = "MainMutiplayer";
             this.Text = "MainMutiplayer";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

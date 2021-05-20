@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,10 +22,29 @@ namespace BlackJack
         public Muti_Server()
         {
             InitializeComponent();
+            DataClient dataClient = new DataClient();
+            dataClient.Show();
             Control.CheckForIllegalCrossThreadCalls = false;
             boBai = new BoBai();
             Connect();
         }
+        SqlConnection conn = new SqlConnection("Data Source=BLACKSONIA\\SQLEXPRESS;Initial Catalog=Client;Integrated Security=True");
+        
+
+        private void Muti_Server_Load(object sender, EventArgs e)
+        {
+            conn.Open();
+
+        }
+        //public DataSet LoadData(string strLenh)
+        //{
+        //    DataSet ds = new DataSet();
+        //    Create_Connect();
+        //    SqlDataAdapter da = new SqlDataAdapter(strLenh, strConnect);
+        //    da.Fill(ds);
+        //    CloseConnect();
+        //    return ds;
+        //}
 
         BoBai boBai;
         IPEndPoint IP;
@@ -32,8 +52,10 @@ namespace BlackJack
         List<Socket> clientList;
         int tempSL = 0;
         int tempPlayer = 0;
+        
         void Connect()
         {
+
             clientList = new List<Socket>();
             IP = new IPEndPoint(IPAddress.Any, 8080);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
@@ -60,9 +82,19 @@ namespace BlackJack
                         receive.IsBackground = true;
                         receive.Start(client);
 
-
+                        
+                        var dap = new SqlDataAdapter("SELECT COUNT(IP) FROM CLIENT", conn);
+                        var table = new DataTable();
+                        dap.Fill(table);
                         string IP = client.RemoteEndPoint.ToString();   //Hiển thị ip client
+
+                        string stringSql = "("+(Int32.Parse(table.Rows[0][0].ToString()) + 1).ToString()+", '"+IP+ "')";
+
+                        dap = new SqlDataAdapter("insert into CLIENT (ID, IP) VALUES"+stringSql, conn);
+                        table = new DataTable();
+                        dap.Fill(table);
                         AddMessage(IP);
+                        AddMessage("insert into CLIENT (ID, IP) VALUES" + stringSql);
                     }
                 }
                 catch
@@ -92,22 +124,41 @@ namespace BlackJack
                     client.Receive(data);
 
                     string message = Deserialize(data).ToString();
-                    //0: start
-                    //1: Mess
-                    //2: đợi
-                    //3: Đã rút
-                    //4: Rut
-                    //5: Dan
-                    //6: Xet bai
+                    string IP = client.RemoteEndPoint.ToString();
+                    //00: start
+                    //01: Mess
+                    //02: đợi
+                    //03: Đã rút
+                    //04: Rut
+                    //05: Dan
+                    //06: Xet bai
 
-                    //7:Số lượng người chơi vidu: 7:20213 --->2 người chơi 1-> có 2 lá 2-> có 2 lá
-                    //8: Server hỏi client
 
-                    //9: nhà cái
-                    
-                    switch (message.Substring(0, 2))
+                    //07:Số lượng người chơi vidu: 7:20213 --->2 người chơi 1-> có 2 lá 2-> có 2 lá
+                    //08: Server hỏi client
+
+                    //09: nhà cái
+
+
+                    //30: Xét bài
+
+                    //11: udate numbercard
+
+                    //2*: Get vào SQLServer
+                    //20: Get số lượng người chơi
+                    //21: Lấy số lượng người chơi
+                    //22: Lấy IP người chơi 1  21:1
+                    //   2 Lấy IP người chơi 2
+                    //   3 Lấy IP người chơi 3
+                    //   4 Lấy IP người chơi 4
+                    //   5 Lấy IP người chơi 5
+
+                    //20: Truy xuất SQL Server
+
+
+                    switch (message.Substring(0, 3))
                     {
-                        case "0:":
+                        case "00:":
                             {
                                 tempSL++;
                                 if (tempSL == clientList.Count())
@@ -116,11 +167,10 @@ namespace BlackJack
                                     {
                                         if (item != null)
                                         {
-                                            message = "0:Start";
+                                            message = "00:Start";
                                             AddMessage(item.RemoteEndPoint.ToString() + ": "+message);
                                             item.Send(Serialize(message));
                                         }
-                                        Thread.Sleep(200);
                                     }
                                     for (int i = 0; i < 2; i++)
                                     {
@@ -130,24 +180,29 @@ namespace BlackJack
                                             {
                                                 Card card = new Card();
                                                 card = boBai.getCard();
-                                                AddMessage("4:" + card.getIdCard());
-                                                item.Send(Serialize("4:" + card.getIdCard()));
+                                                AddMessage("94:" + card.getIdCard());
+                                                item.Send(Serialize("94:" + card.getIdCard()));
                                             }
-                                            Thread.Sleep(200);
                                         }
                                     }
-                                    Thread.Sleep(200);
+                                    foreach (Socket item in clientList) 
+                                    {
+                                        if (item != null)
+                                        {
+                                            AddMessage("20:" + tempSL.ToString());
+                                            client.Send(Serialize("20:" + tempSL.ToString()));
+                                        }
+                                    }
                                     foreach (Socket item in clientList) //đợi
                                     {
-                                        item.Send(Serialize("2:"));
-                                        Thread.Sleep(200);
+                                        item.Send(Serialize("02:"));
                                     }
                                 }
-                                clientList[0].Send(Serialize("9: Bạn là cái ---> Rút cuoi")); /// thang 0 đc rút
+                                clientList[0].Send(Serialize("09: Bạn là cái ---> Rút cuoi")); /// thang 0 đc rút
                               
                                 break;
                             }
-                        case "1:":
+                        case "01:":
                             {
                                 AddMessage(client.RemoteEndPoint.ToString() + ": " + message);
                                 foreach (Socket item in clientList)
@@ -156,14 +211,13 @@ namespace BlackJack
                                     {
                                         item.Send(Serialize(message));
                                     }
-                                    Thread.Sleep(200);
                                 }
                                 
                                 break;
                             }
-                        case "4:":
+                        case "04:":
                             {
-                                AddMessage("4:" + client.RemoteEndPoint.ToString());
+                                AddMessage("04:" + client.RemoteEndPoint.ToString());
                                 
                                 foreach (Socket item in clientList)
                                 {
@@ -171,22 +225,40 @@ namespace BlackJack
                                     {
                                         Card card = new Card();
                                         card = boBai.getCard();
-                                        AddMessage("4:" + card.getIdCard());
-                                        item.Send(Serialize("4:"+card.getIdCard()));
+                                        AddMessage("04:" + card.getIdCard());
+                                        item.Send(Serialize("04:"+card.getIdCard()));
                                     }
-                                    Thread.Sleep(200);
                                 }
                                 break;
                             }
-                        case "5:":
+                        case "05:":
                             {
-                                AddMessage("5:" + client.RemoteEndPoint.ToString());
-                                Thread.Sleep(100);
+                                AddMessage("05:" + client.RemoteEndPoint.ToString());
+                                
+                                var dap = new SqlDataAdapter("update CLIENT SET SUMCARD="+message.Substring(3)+" WHERE IP='"+IP+"'", conn);
+                                var table = new DataTable();
+                                dap.Fill(table);
                                 tempPlayer++;
                                 if (tempPlayer < clientList.Count())
                                 {
-                                    clientList[tempPlayer].Send(Serialize("3:"));
+                                    clientList[tempPlayer].Send(Serialize("03:"));
                                 }
+                                break;
+                            }
+                        case "11:":
+                            {
+                                var dap = new SqlDataAdapter("update CLIENT SET NUMOFCARD = "+message.Substring(3)+" WHERE IP='"+IP+"'", conn);
+                                var table = new DataTable();
+                                dap.Fill(table);
+                                AddMessage("UPDATE CLIENT SET NUMOFCARD = " + message.Substring(3) + " WHERE IP='" + IP + "'");
+
+                                break;
+                            }
+                        case"20:":
+                            {
+                                //get so luong trung database
+                                
+
                                 break;
                             }
                         default:
@@ -209,7 +281,7 @@ namespace BlackJack
                 }
                 catch
                 {
-                    MessageBox.Show("Erro");
+                    //MessageBox.Show("Erro");
                     clientList.Remove(client);
                     client.Close();
                 }
@@ -218,10 +290,7 @@ namespace BlackJack
         }
         void AddMessage(string s)
         {
-            listMess.Items.Add(new ListViewItem()
-            {
-                Text = s
-            });
+            listMess.Text += (s+"\n").ToString();
         }
         byte[] Serialize(object obj)
         {
@@ -242,10 +311,15 @@ namespace BlackJack
 
         private void Muti_Server_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Close();
-            SinglePlay singlePlay = new SinglePlay();
-            singlePlay.Show();
-        }
+            
+            var dap = new SqlDataAdapter("DELETE FROM CLIENT", conn);
+            var table = new DataTable();
+            dap.Fill(table);
 
+
+            Close();
+            Form1 form = new Form1();
+            form.Show();
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace BlackJack
 
         private void materialFlatButton1_Click(object sender, EventArgs e)
         {
+           
             Muti_Server muti_Server = new Muti_Server();
             muti_Server.Show();
         }

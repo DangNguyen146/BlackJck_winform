@@ -28,19 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listMess = new System.Windows.Forms.ListView();
+            this.listMess = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // listMess
             // 
-            this.listMess.GridLines = true;
-            this.listMess.HideSelection = false;
-            this.listMess.Location = new System.Drawing.Point(235, 234);
+            this.listMess.Location = new System.Drawing.Point(218, 216);
             this.listMess.Name = "listMess";
-            this.listMess.Size = new System.Drawing.Size(503, 203);
-            this.listMess.TabIndex = 0;
-            this.listMess.UseCompatibleStateImageBehavior = false;
-            this.listMess.View = System.Windows.Forms.View.List;
+            this.listMess.Size = new System.Drawing.Size(539, 223);
+            this.listMess.TabIndex = 1;
+            this.listMess.Text = "";
             // 
             // Muti_Server
             // 
@@ -52,12 +49,13 @@
             this.Name = "Muti_Server";
             this.Text = "Muti_Server";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Muti_Server_FormClosed);
+            this.Load += new System.EventHandler(this.Muti_Server_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView listMess;
+        private System.Windows.Forms.RichTextBox listMess;
     }
 }

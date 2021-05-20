@@ -78,12 +78,12 @@ namespace BlackJack
                     MessageBox.Show("vui lòng nhập tên");
                     return;
                 }
-                string temp = ("1:"+txtName.Text + ": " + txtMess.Text).ToString();
+                string temp = ("01:"+txtName.Text + ": " + txtMess.Text).ToString();
                 client.Send(Serialize(temp));
             }
             else if(txtMess.Visible==false)
             {
-                string temp = "0:";
+                string temp = "00:";
                 client.Send(Serialize(temp));
             }
         }
@@ -100,9 +100,9 @@ namespace BlackJack
 
                     string message = Deserialize(data).ToString();
 
-                    switch (message.Substring(0, 2))
+                    switch (message.Substring(0, 3))
                     {
-                        case "0:":
+                        case "00:":
                             {
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
@@ -118,43 +118,51 @@ namespace BlackJack
                                 });
                                 break;
                             }
-                        case "1:":
+                        case "01:":
                             {
-                                AddMessage(message.Substring(2));
+                                AddMessage(message.Substring(3));
                                 break;
                             }
-                        case "2:":   //2: wait
+                        case "02:":   //2: wait
                             {
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
                                     waitingLoading.Visible=true;
                                 });
+
                                 break;
                             }
-                        case "3:":
+                        case "03:":
                             {
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
                                     waitingLoading.Visible = false;
                                     btnRut.Visible = true;
                                     label4.Visible = true;
+                                    if (Int32.Parse(label4.Text.Trim()) > 16)
+                                        btnDan.Visible = true;
+
                                 });
                                 break;
                             }
-                        case "9:":
-                            {
-                                this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
-                                {
-                                    waitingLoading.Visible = false;
-                                    btnDan.Visible = true;
-                                    label4.Visible = true;
-                                });
-                                break;
-                            }
-                        case "4:":
+                        
+                        case "94:":
                             {
                                 Card card = new Card();
-                                card.AddIdCard(message.Substring(2));
+                                card.AddIdCard(message.Substring(3));
+                                user.addCard(card);
+                                DrawCard(card, user.getNumberCard(1));
+                                this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                {
+                                    label4.Text = (user.getSum()).ToString();
+                                    waitingLoading.Visible = true;
+                                });
+                                break;
+                            }
+                        case "04:":
+                            {
+                                Card card = new Card();
+                                card.AddIdCard(message.Substring(3));
                                 user.addCard(card);
                                 DrawCard(card, user.getNumberCard(1));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
@@ -165,8 +173,20 @@ namespace BlackJack
                                 });
                                 break;
                             }
-
-
+                        case "09:":
+                            {
+                                this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                {
+                                    waitingLoading.Visible = false;
+                                    btnDan.Visible = true;
+                                });
+                                break;
+                            }
+                        case "20:":
+                            {
+                                AddMessage(message.Substring(3));
+                                break;
+                            }
                         default:
                             break;
                     }
@@ -187,7 +207,7 @@ namespace BlackJack
             });
             txtMess.Clear();
         }
-        byte[] Serialize(object obj)
+        byte[] Serialize(   object obj)
         {
             MemoryStream stream = new MemoryStream();
             BinaryFormatter formatter = new BinaryFormatter();
@@ -437,7 +457,7 @@ namespace BlackJack
 
         private void btnRut_Click(object sender, EventArgs e)
         {
-            client.Send(Serialize("4:"));
+            client.Send(Serialize("04:"));
             if (user.getNumberCard() == 4)
             {
                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
@@ -456,7 +476,9 @@ namespace BlackJack
                 btnRut.Visible = false;
                 btnDan.Visible = false;
             });
-            client.Send(Serialize("5:"));
+            client.Send(Serialize("11:" + user.getNumberCard().ToString()));
+            client.Send(Serialize("05:"+ user.getSum(0).ToString()));
+
         }
     }
 }
