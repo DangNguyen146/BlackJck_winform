@@ -1,5 +1,6 @@
 # BlackJck_winform
 ### Lập trình mạng căn bản
-                 Nguyễn Khải Đăng
-                 Nguyễn Khánh An
-                 Võ Đức Khải
+#### NT106.L22.ATCL - Nhóm 6
+    Nguyễn Khải Đăng
+    Nguyễn Khánh An
+    Võ Đức Khải
