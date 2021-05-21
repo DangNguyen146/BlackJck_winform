@@ -41,7 +41,7 @@ namespace BlackJack
         Socket client;
         bool isChat = false;
         int tempPlayer;
-        void Connect()
+        void Connect()  
         {
             user = new Player();
             user.setLoaiNguoi(1);
@@ -49,6 +49,8 @@ namespace BlackJack
             IP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080);
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
             client.Connect(IP);
+            
+
 
             try
             {
@@ -129,7 +131,7 @@ namespace BlackJack
                                 {
                                     waitingLoading.Visible=true;
                                 });
-
+                               
                                 break;
                             }
                         case "03:":
@@ -139,7 +141,7 @@ namespace BlackJack
                                     waitingLoading.Visible = false;
                                     btnRut.Visible = true;
                                     label4.Visible = true;
-                                    if (Int32.Parse(label4.Text.Trim()) > 16)
+                                    if (Int32.Parse(label4.Text.Trim()) >= 16)
                                         btnDan.Visible = true;
 
                                 });
@@ -152,11 +154,13 @@ namespace BlackJack
                                 card.AddIdCard(message.Substring(3));
                                 user.addCard(card);
                                 DrawCard(card, user.getNumberCard(1));
+                                client.Send(Serialize("11:2"));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
                                     label4.Text = (user.getSum()).ToString();
                                     waitingLoading.Visible = true;
                                 });
+                               
                                 break;
                             }
                         case "04:":
@@ -165,26 +169,358 @@ namespace BlackJack
                                 card.AddIdCard(message.Substring(3));
                                 user.addCard(card);
                                 DrawCard(card, user.getNumberCard(1));
+                                client.Send(Serialize("11:" + user.getNumberCard().ToString()));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
                                     label4.Text = (user.getSum()).ToString();
-                                    if (Int32.Parse(label4.Text.Trim()) > 16)
+                                    if (Int32.Parse(label4.Text.Trim()) >= 16 || user.getNumberCard()==5)
                                         btnDan.Visible = true;
                                 });
+                                
                                 break;
                             }
                         case "09:":
                             {
+                                AddMessage(message.Substring(3));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
                                     waitingLoading.Visible = false;
                                     btnDan.Visible = true;
                                 });
+                                client.Send(Serialize("20:"));
                                 break;
                             }
                         case "20:":
                             {
-                                AddMessage(message.Substring(3));
+                                int temp = Int32.Parse(message.Substring(3,1));
+                                string temp2 = message.Substring(4);
+                                this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                {
+                                    if (temp >= 2)
+                                    {
+                                        player1.Visible = true;
+                                        txtPlayer1.Visible = true;
+                                        txtPlayer1.Text = temp2.Substring(0, 15);
+                                        pbplayer11.Visible = true;
+                                        pbplayer12.Visible = true;
+                                    }
+                                    if (temp >= 3)
+                                    {
+                                        temp2 = temp2.Substring(16);
+                                        player2.Visible = true;
+                                        txtPlayer2.Visible = true;
+                                        txtPlayer2.Text = temp2.Substring(0, 15);
+                                        AddMessage(temp2.Substring(0, 15));
+                                        pbplayer21.Visible = true;
+                                        pbplayer22.Visible = true;
+                                    }
+                                    if (temp >= 4)
+                                    {
+                                        temp2 = temp2.Substring(16);
+                                        player3.Visible = true;
+                                        txtPlayer3.Visible = true;
+                                        txtPlayer3.Text = temp2.Substring(0, 15);
+                                        pbplayer31.Visible = true;
+                                        pbplayer32.Visible = true;
+                                    }
+                                    if (temp >= 5)
+                                    {
+                                        temp2 = temp2.Substring(16);
+                                        player4.Visible = true;
+                                        txtPlayer4.Visible = true;
+                                        pbplayer41.Visible = true;
+                                        pbplayer42.Visible = true;
+                                    }
+                                });
+                                break;
+                            }
+                        case "21:":
+                            {
+                                string temp = message.Substring(3);
+                                this.Invoke((MethodInvoker)delegate {
+                                    AddMessage(temp.Substring(0, 15) + "==" + txtPlayer1.Text);
+                                    if (temp != null)
+                                    {
+                                        if (temp.Substring(0,15) == txtPlayer1.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer13.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer14.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer15.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer2.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer23.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer24.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer25.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer3.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer33.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer34.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer35.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer4.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer43.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer44.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer45.Visible = true;
+                                        }
+                                    }
+                                    if (temp.Substring(16)!="")
+                                    {
+                                        temp = temp.Substring(16);
+                                        if (temp.Substring(0, 15) == txtPlayer1.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer13.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer14.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer15.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer2.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer23.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer24.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer25.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer3.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer33.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer34.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer35.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer4.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer43.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer44.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer45.Visible = true;
+                                        }
+                                    }
+                                    if (temp.Substring(16) != "")
+                                    {
+                                        temp = temp.Substring(16);
+                                        if (temp.Substring(0, 15) == txtPlayer1.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer13.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer14.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer15.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer2.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer23.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer24.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer25.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer3.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer33.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer34.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer35.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer4.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer43.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer44.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer45.Visible = true;
+                                        }
+                                    }
+                                    if (temp.Substring(16) != "")
+                                    {
+                                        temp = temp.Substring(16);
+                                        if (temp.Substring(0, 15) == txtPlayer1.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer13.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer14.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer15.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer2.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer23.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer24.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer25.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer3.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer33.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer34.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer35.Visible = true;
+                                        }
+                                        else if (temp.Substring(0, 15) == txtPlayer4.Text)
+                                        {
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 3)
+                                                pbplayer43.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 4)
+                                                pbplayer44.Visible = true;
+                                            if (Int32.Parse(temp.Substring(15, 1)) >= 5)
+                                                pbplayer45.Visible = true;
+                                        }
+                                    }
+                                });
+                                
+                                break;
+                            }
+                        case "30:":
+                            {
+                                this.Invoke((MethodInvoker)delegate {
+                                    btnRut.Visible = true;
+                                    label4.Visible = true;
+                                    waitingLoading.Visible = false;
+                                    if (txtPlayer1.Text != "")
+                                        ckplayer1.Visible = true;
+                                    if (txtPlayer2.Text != "")
+                                        ckplayer2.Visible = true;
+                                    if (txtPlayer3.Text != "")
+                                        ckplayer3.Visible = true;
+                                    if (txtPlayer4.Text != "")
+                                        ckplayer4.Visible = true;
+                                });
+                                    break;
+                            }
+                        case "31:":
+                            {
+                                string temp = message.Substring(3);
+                                this.Invoke((MethodInvoker)delegate {
+                                    waitingLoading.Visible = false;
+                                    ketQua.Visible = true;
+                                    if (temp == "01")
+                                    {
+                                        ketQua.Text = "Thắng";
+                                    }
+                                    if (temp == "00")
+                                    {
+                                        ketQua.Text = "Hòa";
+                                    }
+                                    if (temp == "-1")
+                                    {
+                                        ketQua.Text = "Thua";
+                                    }
+                                });
+                                break;
+                            }
+
+
+                        case "61:":
+                            {
+                                string temp = message.Substring(3);
+                                this.Invoke((MethodInvoker)delegate {
+                                    ckplayer1.Visible = false;
+                                    ketQuaPlayer1.Visible = true;
+                                    if (temp == "01")
+                                    {
+                                        ketQuaPlayer1.Text = "Thắng";
+                                    }
+                                    if (temp == "00")
+                                    {
+                                        ketQuaPlayer1.Text = "Hòa";
+                                    }
+                                    if (temp == "-1")
+                                    {
+                                        ketQuaPlayer1.Text = "Thua";
+                                    }
+                                });
+                                break;
+                            }
+                        case "62:":
+                            {
+                                this.Invoke((MethodInvoker)delegate {
+                                    ckplayer2.Visible = false;
+                                    ketQuaPlayer2.Visible = true;
+                                    if (message.Substring(3) == "01")
+                                    {
+                                        ketQuaPlayer2.Text = "Thắng";
+                                    }
+                                    if (message.Substring(3) == "00")
+                                    {
+                                        ketQuaPlayer2.Text = "Hòa";
+                                    }
+                                    if (message.Substring(3) == "-1")
+                                    {
+                                        ketQuaPlayer2.Text = "Thua";
+                                    }
+                                });
+                                break;
+                            }
+                        case "63:":
+                            {
+                                this.Invoke((MethodInvoker)delegate {
+                                    ckplayer3.Visible = false;
+                                    ketQuaPlayer3.Visible = true;
+                                    if (message.Substring(3) == "01")
+                                    {
+                                        ketQuaPlayer3.Text = "Thắng";
+                                    }
+                                    if (message.Substring(3) == "00")
+                                    {
+                                        ketQuaPlayer3.Text = "Hòa";
+                                    }
+                                    if (message.Substring(3) == "-1")
+                                    {
+                                        ketQuaPlayer3.Text = "Thua";
+                                    }
+                                });
+                                break;
+                            }
+                        case "64:":
+                            {
+                                this.Invoke((MethodInvoker)delegate {
+                                    ckplayer4.Visible = false;
+                                    ketQuaPlayer4.Visible = true;
+                                    if (message.Substring(3) == "01")
+                                    {
+                                        ketQuaPlayer4.Text = "Thắng";
+                                    }
+                                    if (message.Substring(3) == "00")
+                                    {
+                                        ketQuaPlayer4.Text = "Hòa";
+                                    }
+                                    if (message.Substring(3) == "-1")
+                                    {
+                                        ketQuaPlayer4.Text = "Thua";
+                                    }
+                                });
                                 break;
                             }
                         default:
@@ -194,17 +530,14 @@ namespace BlackJack
                 }
                 catch
                 {
-                    Close();
+                    client.Close();
                 }
             }
 
         }
         void AddMessage(string s)
         {
-            listMess.Items.Add(new ListViewItem()
-            {
-                Text = s
-            });
+            listMess.Text += (s + "\n").ToString();
             txtMess.Clear();
         }
         byte[] Serialize(   object obj)
@@ -458,27 +791,50 @@ namespace BlackJack
         private void btnRut_Click(object sender, EventArgs e)
         {
             client.Send(Serialize("04:"));
-            if (user.getNumberCard() == 4)
+            this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
             {
-                this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                if (user.getNumberCard() == 4)
                 {
-                    btnRut.Visible = false;
-                });
-            }
-            
+                        btnRut.Visible = false;
+                }
+            });
         }
 
         private void btnDan_Click(object sender, EventArgs e)
         {
+            client.Send(Serialize("05:" + user.getSum(0).ToString()));
+            client.Send(Serialize("12:"));
             this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
             {
                 waitingLoading.Visible = true;
                 btnRut.Visible = false;
                 btnDan.Visible = false;
             });
-            client.Send(Serialize("11:" + user.getNumberCard().ToString()));
-            client.Send(Serialize("05:"+ user.getSum(0).ToString()));
+           
+        }
 
+        private void ckplayer1_Click(object sender, EventArgs e)
+        {
+            string text = txtPlayer1.Text;
+            client.Send(Serialize("31:" + text));
+        }
+
+        private void ckplayer2_Click(object sender, EventArgs e)
+        {
+            string text = txtPlayer2.Text;
+            client.Send(Serialize("32:" + text));
+        }
+
+        private void ckplayer3_Click(object sender, EventArgs e)
+        {
+            string text = txtPlayer4.Text;
+            client.Send(Serialize("33:" + text));
+        }
+
+        private void ckplayer4_Click(object sender, EventArgs e)
+        {
+            string text = txtPlayer1.Text;
+            client.Send(Serialize("34:" + text));
         }
     }
 }

@@ -43,5 +43,14 @@ namespace BlackJack
             dap.Fill(table);
             datatClient.DataSource = table;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var dap = new SqlDataAdapter(textBox2.Text, conn);
+            var table = new DataTable();
+            dap.Fill(table);
+
+            textBox3.Text = table.Rows[0][0].ToString();
+        }
     }
 }
