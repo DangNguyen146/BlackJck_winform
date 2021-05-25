@@ -31,7 +31,6 @@ namespace BlackJack
             {
                 return;
             }
-            AddMessage((txtName.Text + ": " + txtMess.Text).ToString());
         }
         //kết nối
 
@@ -210,7 +209,6 @@ namespace BlackJack
                                         player2.Visible = true;
                                         txtPlayer2.Visible = true;
                                         txtPlayer2.Text = temp2.Substring(0, 15);
-                                        AddMessage(temp2.Substring(0, 15));
                                         pbplayer21.Visible = true;
                                         pbplayer22.Visible = true;
                                     }
@@ -228,6 +226,7 @@ namespace BlackJack
                                         temp2 = temp2.Substring(16);
                                         player4.Visible = true;
                                         txtPlayer4.Visible = true;
+                                        txtPlayer4.Text = temp2.Substring(0, 15);
                                         pbplayer41.Visible = true;
                                         pbplayer42.Visible = true;
                                     }
@@ -238,7 +237,6 @@ namespace BlackJack
                             {
                                 string temp = message.Substring(3);
                                 this.Invoke((MethodInvoker)delegate {
-                                    AddMessage(temp.Substring(0, 15) + "==" + txtPlayer1.Text);
                                     if (temp != null)
                                     {
                                         if (temp.Substring(0,15) == txtPlayer1.Text)
@@ -526,7 +524,6 @@ namespace BlackJack
                         default:
                             break;
                     }
-                    //AddMessage(message);
                 }
                 catch
                 {
@@ -741,51 +738,41 @@ namespace BlackJack
             switch (num)
             {
                 case 1:
-                    if (card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                     {
-                        radioButton1.Visible = true;
-                        radioButton2.Visible = true;
-                    }
-                    pictureBox6.Image = pb.Image;
-                    pictureBox6.Visible = true;
+                        pictureBox6.Image = pb.Image;
+                        pictureBox6.Visible = true;
+                    });
                     break;
                 case 2:
-                    if (card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                     {
-                        radioButton3.Visible = true;
-                        radioButton4.Visible = true;
-                    }
-                    pictureBox7.Image = pb.Image;
-                    pictureBox7.Visible = true;
+                        pictureBox7.Image = pb.Image;
+                        pictureBox7.Visible = true;
+                    });
                     break;
                 case 3:
-                    if (card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                     {
-                        radioButton5.Visible = true;
-                        radioButton6.Visible = true;
-                    }
-                    pictureBox8.Image = pb.Image;
-                    pictureBox8.Visible = true;
+                        pictureBox8.Image = pb.Image;
+                        pictureBox8.Visible = true;
+                    });
                     break;
                 case 4:
-                    if (card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                     {
-                        radioButton7.Visible = true;
-                        radioButton8.Visible = true;
-                    }
-                    pictureBox9.Image = pb.Image;
-                    pictureBox9.Visible = true;
+                        pictureBox9.Image = pb.Image;
+                        pictureBox9.Visible = true;
+                    });
                     break;
                 case 5:
-                    if (card.getIdCard().Substring(0, card.getIdCard().Length == 2 ? 1 : 2) == "1")
+                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                     {
-                        radioButton9.Visible = true;
-                        radioButton10.Visible = true;
-                    }
-                    pictureBox10.Image = pb.Image;
-                    pictureBox10.Visible = true;
+                        pictureBox10.Image = pb.Image;
+                        pictureBox10.Visible = true;
+                    });
                     break;
-                    }
+            }
         }
 
         private void btnRut_Click(object sender, EventArgs e)
@@ -802,7 +789,7 @@ namespace BlackJack
 
         private void btnDan_Click(object sender, EventArgs e)
         {
-            client.Send(Serialize("05:" + user.getSum(0).ToString()));
+            client.Send(Serialize("05:" + user.getSum().ToString()));
             client.Send(Serialize("12:"));
             this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
             {
@@ -827,13 +814,13 @@ namespace BlackJack
 
         private void ckplayer3_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer4.Text;
+            string text = txtPlayer3.Text;
             client.Send(Serialize("33:" + text));
         }
 
         private void ckplayer4_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer1.Text;
+            string text = txtPlayer4.Text;
             client.Send(Serialize("34:" + text));
         }
     }

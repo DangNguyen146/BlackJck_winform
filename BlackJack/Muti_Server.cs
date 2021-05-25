@@ -174,6 +174,7 @@ namespace BlackJack
                                             AddMessage(item.RemoteEndPoint.ToString() + ": "+message);
                                             item.Send(Serialize(message));
                                         }
+                                        Thread.Sleep(100);
                                     }
                                     for (int i = 0; i < 2; i++)
                                     {
@@ -187,13 +188,14 @@ namespace BlackJack
                                                 item.Send(Serialize("94:" + card.getIdCard()));
                                             }
                                         }
+                                        Thread.Sleep(100);
                                     }
-
                                     
                                     foreach (Socket item in clientList) //đợi
                                     {
                                         item.Send(Serialize("02:"));
                                     }
+                                    Thread.Sleep(100);
                                     clientList[0].Send(Serialize("09: Bạn là cái ---> Rút cuoi")); /// thang 0 đc rút
                                 }
                               
@@ -312,6 +314,7 @@ namespace BlackJack
                                             temp += i.RemoteEndPoint.ToString() + "2";
                                     }
                                     item.Send(Serialize("20:" + (tempSL).ToString() + temp));
+                                    Thread.Sleep(100);
                                 }
                                 break;
                             }

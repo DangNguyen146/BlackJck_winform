@@ -44,6 +44,15 @@ namespace BlackJack
             {
                 if (c.getIdCard().Substring(0, c.getIdCard().Length == 2 ? 1 : 2) != "1")
                     sum += c.getValue();
+                else
+                {
+                    if (this.getNumberCard() == 2 )
+                        sum += 11;
+                    else if (this.getNumberCard() == 3 && sum <= 11)
+                        sum += 10;
+                    else 
+                        sum += 1;
+                }
             }
             Sum = sum;
             return Sum;
