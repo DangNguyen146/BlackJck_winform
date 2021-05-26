@@ -162,6 +162,30 @@ namespace BlackJack
                                
                                 break;
                             }
+                        case "98:":
+                            {
+                                if (txtPlayer1.Text == message.Substring(3))
+                                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                    {
+                                        pBc1.Visible = true;
+                                    });
+                                else if (txtPlayer2.Text == message.Substring(3))
+                                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                    {
+                                        pBc2.Visible = true;
+                                    });
+                                else if (txtPlayer3.Text == message.Substring(3))
+                                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                    {
+                                        pBc3.Visible = true;
+                                    });
+                                else if (txtPlayer4.Text == message.Substring(3))
+                                    this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                                    {
+                                        pBc4.Visible = true;
+                                    });
+                                break;
+                            }
                         case "04:":
                             {
                                 Card card = new Card();
@@ -436,10 +460,158 @@ namespace BlackJack
                                         ketQua.Text = "Thua";
                                     }
                                 });
+                                temp = user.getAllCard();
+                                client.Send(Serialize("36:"+temp));
                                 break;
                             }
-
-
+                        case "36:":
+                            {
+                                string temp = message.Substring(3);
+                                Card cards = new Card();
+                                int i = 1;
+                                while (temp != "")
+                                {
+                                    cards.AddIdCard(temp.Substring(0, 2));
+                                    DrawCardCai(cards, i, 1);
+                                    i++;
+                                    temp = temp.Substring(2);
+                                }
+                                break;
+                            }
+                        case "41:":
+                            {
+                                string temp = user.getAllCard();
+                                client.Send(Serialize("41:"+ temp));
+                                break;
+                            }
+                        case "42:":
+                            {
+                                string temp = user.getAllCard();
+                                client.Send(Serialize("42:" + temp));
+                                break;
+                            }
+                        case "43:":
+                            {
+                                string temp = user.getAllCard();
+                                client.Send(Serialize("43:" + temp)) ;
+                                break;
+                            }
+                        case "44:":
+                            {
+                                string temp = user.getAllCard();
+                                client.Send(Serialize("44:" + temp));
+                                break;
+                            }
+                        case "51:":
+                            {
+                                string temp = message.Substring(3);
+                                Card cards = new Card();
+                                int i = 1;
+                                while (temp != "")
+                                {
+                                    cards.AddIdCard(temp.Substring(0, 2));
+                                    DrawCardCai(cards, i, 1);
+                                    i++;
+                                    temp = temp.Substring(2);
+                                }
+                                break;
+                            }
+                        case "52:":
+                            {
+                                string temp = message.Substring(3);
+                                int i = 1;
+                                Card card = new Card();
+                                while (temp != "")
+                                {
+                                    card.AddIdCard(temp.Substring(0, 2));
+                                    DrawCardCai(card, i, 2);
+                                    i++;
+                                    temp = temp.Substring(2);
+                                }
+                                break;
+                            }
+                        case "53:":
+                            {
+                                string temp = message.Substring(3);
+                                int i = 1;
+                                Card card = new Card();
+                                while (temp != "")
+                                {
+                                    card.AddIdCard(temp.Substring(0, 2));
+                                    DrawCardCai(card, i, 3);
+                                    i++;
+                                    temp = temp.Substring(2);
+                                }
+                                break;
+                            }
+                        case "54:":
+                            {
+                                string temp = message.Substring(3);
+                                int i = 1;
+                                Card card = new Card();
+                                while (temp != "")
+                                {
+                                    card.AddIdCard(temp.Substring(0, 2));
+                                    DrawCardCai(card, i, 4);
+                                    i++;
+                                    temp = temp.Substring(2);
+                                }
+                                break;
+                            }
+                        case "55:":
+                            {
+                                string temp = message.Substring(3);
+                                int i = 1;
+                                Card card = new Card();
+                                if (temp != null)
+                                {
+                                    if (temp.Substring(0, 15) == txtPlayer1.Text)
+                                    {
+                                        temp = temp.Substring(15);
+                                        while (temp != "")
+                                        {
+                                            card.AddIdCard(temp.Substring(0, 2));
+                                            DrawCardCai(card, i, 1);
+                                            i++;
+                                            temp = temp.Substring(2);
+                                        }
+                                    }
+                                    else if (temp.Substring(0, 15) == txtPlayer2.Text)
+                                    {
+                                        temp = temp.Substring(15);
+                                        while (temp != "")
+                                        {
+                                            card.AddIdCard(temp.Substring(0, 2));
+                                            DrawCardCai(card, i, 2);
+                                            i++;
+                                            temp = temp.Substring(2);
+                                        }
+                                    }
+                                    else if (temp.Substring(0, 15) == txtPlayer3.Text)
+                                    {
+                                        temp = temp.Substring(15);
+                                        while (temp != "")
+                                        {
+                                            card.AddIdCard(temp.Substring(0, 2));
+                                            DrawCardCai(card, i, 3);
+                                            i++;
+                                            temp = temp.Substring(2);
+                                        }
+                                    }
+                                    else if (temp.Substring(0, 15) == txtPlayer4.Text)
+                                    {
+                                        temp = temp.Substring(15);
+                                        while (temp != "")
+                                        {
+                                            card.AddIdCard(temp.Substring(0, 2));
+                                            DrawCardCai(card, i, 4);
+                                            i++;
+                                            temp = temp.Substring(2);
+                                        }
+                                    }
+                                }
+                                break;
+                            }
                         case "61:":
                             {
                                 string temp = message.Substring(3);
@@ -459,6 +631,7 @@ namespace BlackJack
                                         ketQuaPlayer1.Text = "Thua";
                                     }
                                 });
+                                
                                 break;
                             }
                         case "62:":
@@ -774,7 +947,310 @@ namespace BlackJack
                     break;
             }
         }
+        private void DrawCardCai(Card card, int num, int player)
+        {
+            PictureBox pb = new PictureBox();
+            switch (card.getIdCard())
+            {
+                case "1C":
+                    pb.Image = BlackJack.Properties.Resources._1C;
+                    break;
+                case "1R":
+                    pb.Image = BlackJack.Properties.Resources._1R;
+                    break;
+                case "1H":
+                    pb.Image = BlackJack.Properties.Resources._1H;
+                    break;
+                case "1B":
+                    pb.Image = BlackJack.Properties.Resources._1B;
+                    break;
+                case "2C":
+                    pb.Image = BlackJack.Properties.Resources._2C;
+                    break;
+                case "2R":
+                    pb.Image = BlackJack.Properties.Resources._2R;
+                    break;
+                case "2H":
+                    pb.Image = BlackJack.Properties.Resources._2H;
+                    break;
+                case "2B":
+                    pb.Image = BlackJack.Properties.Resources._2B;
+                    break;
+                case "3C":
+                    pb.Image = BlackJack.Properties.Resources._3C;
+                    break;
+                case "3R":
+                    pb.Image = BlackJack.Properties.Resources._3R;
+                    break;
+                case "3H":
+                    pb.Image = BlackJack.Properties.Resources._3H;
+                    break;
+                case "3B":
+                    pb.Image = BlackJack.Properties.Resources._3B;
+                    break;
+                case "4C":
+                    pb.Image = BlackJack.Properties.Resources._4C;
+                    break;
+                case "4R":
+                    pb.Image = BlackJack.Properties.Resources._4R;
+                    break;
+                case "4H":
+                    pb.Image = BlackJack.Properties.Resources._4H;
+                    break;
+                case "4B":
+                    pb.Image = BlackJack.Properties.Resources._4B;
+                    break;
+                case "5C":
+                    pb.Image = BlackJack.Properties.Resources._5C;
+                    break;
+                case "5R":
+                    pb.Image = BlackJack.Properties.Resources._5R;
+                    break;
+                case "5H":
+                    pb.Image = BlackJack.Properties.Resources._5H;
+                    break;
+                case "5B":
+                    pb.Image = BlackJack.Properties.Resources._5B;
+                    break;
+                case "6C":
+                    pb.Image = BlackJack.Properties.Resources._6C;
+                    break;
+                case "6R":
+                    pb.Image = BlackJack.Properties.Resources._6R;
+                    break;
+                case "6H":
+                    pb.Image = BlackJack.Properties.Resources._6H;
+                    break;
+                case "6B":
+                    pb.Image = BlackJack.Properties.Resources._6B;
+                    break;
+                case "7C":
+                    pb.Image = BlackJack.Properties.Resources._7C;
+                    break;
+                case "7R":
+                    pb.Image = BlackJack.Properties.Resources._7R;
+                    break;
+                case "7H":
+                    pb.Image = BlackJack.Properties.Resources._7H;
+                    break;
+                case "7B":
+                    pb.Image = BlackJack.Properties.Resources._7B;
+                    break;
+                case "8C":
+                    pb.Image = BlackJack.Properties.Resources._8C;
+                    break;
+                case "8R":
+                    pb.Image = BlackJack.Properties.Resources._8R;
+                    break;
+                case "8H":
+                    pb.Image = BlackJack.Properties.Resources._8H;
+                    break;
+                case "8B":
+                    pb.Image = BlackJack.Properties.Resources._8B;
+                    break;
+                case "9C":
+                    pb.Image = BlackJack.Properties.Resources._9C;
+                    break;
+                case "9R":
+                    pb.Image = BlackJack.Properties.Resources._9R;
+                    break;
+                case "9H":
+                    pb.Image = BlackJack.Properties.Resources._9H;
+                    break;
+                case "9B":
+                    pb.Image = BlackJack.Properties.Resources._9B;
+                    break;
+                case "10C":
+                    pb.Image = BlackJack.Properties.Resources._10C;
+                    break;
+                case "10R":
+                    pb.Image = BlackJack.Properties.Resources._10R;
+                    break;
+                case "10H":
+                    pb.Image = BlackJack.Properties.Resources._10H;
+                    break;
+                case "10B":
+                    pb.Image = BlackJack.Properties.Resources._10B;
+                    break;
+                case "JC":
+                    pb.Image = BlackJack.Properties.Resources.JC;
+                    break;
+                case "JR":
+                    pb.Image = BlackJack.Properties.Resources.JR;
+                    break;
+                case "JH":
+                    pb.Image = BlackJack.Properties.Resources.JH;
+                    break;
+                case "JB":
+                    pb.Image = BlackJack.Properties.Resources.JB;
+                    break;
+                case "QC":
+                    pb.Image = BlackJack.Properties.Resources.QC;
+                    break;
+                case "QR":
+                    pb.Image = BlackJack.Properties.Resources.QR;
+                    break;
+                case "QH":
+                    pb.Image = BlackJack.Properties.Resources.QH;
+                    break;
+                case "QB":
+                    pb.Image = BlackJack.Properties.Resources.QB;
+                    break;
+                case "KC":
+                    pb.Image = BlackJack.Properties.Resources.KC;
+                    break;
+                case "KR":
+                    pb.Image = BlackJack.Properties.Resources.KR;
+                    break;
+                case "KH":
+                    pb.Image = BlackJack.Properties.Resources.KH;
+                    break;
+                case "KB":
+                    pb.Image = BlackJack.Properties.Resources.KB;
+                    break;
+                default:
+                    pb.Image = BlackJack.Properties.Resources.PP;
+                    break;
+            }
+            if (player == 1)
+                switch (num)
+                {
+                    case 1:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer11.Image = pb.Image;
+                        });
+                        break;
+                    case 2:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer12.Image = pb.Image;
+                        });
+                        break;
+                    case 3:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer13.Image = pb.Image;
+                        });
+                        break;
+                    case 4:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer14.Image = pb.Image;
+                        });
+                        break;
+                    case 5:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer15.Image = pb.Image;
+                        });
+                        break;
 
+                }
+            else if (player == 2)
+                switch (num)
+                {
+                    case 1:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer21.Image = pb.Image;
+                        });
+                        break;
+                    case 2:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer22.Image = pb.Image;
+                        });
+                        break;
+                    case 3:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer23.Image = pb.Image;
+                        });
+                        break;
+                    case 4:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer24.Image = pb.Image;
+                        });
+                        break;
+                    case 5:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer25.Image = pb.Image;
+                        });
+                        break;
+                }
+            else if (player == 3)
+                switch (num)
+                {
+                    case 1:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer31.Image = pb.Image;
+                        });
+                        break;
+                    case 2:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer32.Image = pb.Image;
+                        });
+                        break;
+                    case 3:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer33.Image = pb.Image;
+                        });
+                        break;
+                    case 4:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer34.Image = pb.Image;
+                        });
+                        break;
+                    case 5:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer35.Image = pb.Image;
+                        });
+                        break;
+                }
+            else if (player == 4)
+                switch (num)
+                {
+                    case 1:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer41.Image = pb.Image;
+                        });
+                        break;
+                    case 2:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer42.Image = pb.Image;
+                        });
+                        break;
+                    case 3:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer43.Image = pb.Image;
+                        });
+                        break;
+                    case 4:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer44.Image = pb.Image;
+                        });
+                        break;
+                    case 5:
+                        this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
+                        {
+                            pbplayer45.Image = pb.Image;
+                        });
+                        break;
+                }
+
+        }
         private void btnRut_Click(object sender, EventArgs e)
         {
             client.Send(Serialize("04:"));
@@ -804,24 +1280,36 @@ namespace BlackJack
         {
             string text = txtPlayer1.Text;
             client.Send(Serialize("31:" + text));
+            Thread.Sleep(20);
+            text =  user.getAllCard();
+            client.Send(Serialize("35:"+text));
         }
 
         private void ckplayer2_Click(object sender, EventArgs e)
         {
             string text = txtPlayer2.Text;
             client.Send(Serialize("32:" + text));
+            Thread.Sleep(20);
+            text = user.getAllCard();
+            client.Send(Serialize("35:" + text));
         }
 
         private void ckplayer3_Click(object sender, EventArgs e)
         {
             string text = txtPlayer3.Text;
             client.Send(Serialize("33:" + text));
+            Thread.Sleep(20);
+            text = user.getAllCard();
+            client.Send(Serialize("35:" + text));
         }
 
         private void ckplayer4_Click(object sender, EventArgs e)
         {
             string text = txtPlayer4.Text;
             client.Send(Serialize("34:" + text));
+            Thread.Sleep(20);
+            text = user.getAllCard();
+            client.Send(Serialize("35:" + text));
         }
     }
 }

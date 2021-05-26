@@ -36,7 +36,15 @@ namespace BlackJack
         {
             cards.Add(temp);
         }
-    
+        public string getAllCard()
+        {
+            string temp = "";
+            foreach (Card c in cards)
+            {
+                temp += c.getIdCard();
+            }
+            return temp;
+        }
         public int getSum()
         {
             int sum = 0;

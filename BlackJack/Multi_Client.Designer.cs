@@ -92,6 +92,10 @@
             this.ketQuaPlayer3 = new System.Windows.Forms.Label();
             this.ketQuaPlayer4 = new System.Windows.Forms.Label();
             this.ketQua = new System.Windows.Forms.Label();
+            this.pBc2 = new System.Windows.Forms.PictureBox();
+            this.pBc1 = new System.Windows.Forms.PictureBox();
+            this.pBc3 = new System.Windows.Forms.PictureBox();
+            this.pBc4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
@@ -121,6 +125,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc4)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSend
@@ -460,7 +468,7 @@
             // 
             this.player4.BackColor = System.Drawing.Color.Transparent;
             this.player4.Image = global::BlackJack.Properties.Resources._4;
-            this.player4.Location = new System.Drawing.Point(792, 234);
+            this.player4.Location = new System.Drawing.Point(802, 273);
             this.player4.Name = "player4";
             this.player4.Size = new System.Drawing.Size(158, 59);
             this.player4.TabIndex = 53;
@@ -517,7 +525,7 @@
             this.txtPlayer4.BackColor = System.Drawing.Color.Transparent;
             this.txtPlayer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlayer4.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.txtPlayer4.Location = new System.Drawing.Point(859, 244);
+            this.txtPlayer4.Location = new System.Drawing.Point(869, 283);
             this.txtPlayer4.Name = "txtPlayer4";
             this.txtPlayer4.Size = new System.Drawing.Size(0, 16);
             this.txtPlayer4.TabIndex = 62;
@@ -692,7 +700,7 @@
             // 
             this.pbplayer45.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbplayer45.BackgroundImage")));
             this.pbplayer45.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbplayer45.Location = new System.Drawing.Point(924, 296);
+            this.pbplayer45.Location = new System.Drawing.Point(934, 335);
             this.pbplayer45.Name = "pbplayer45";
             this.pbplayer45.Size = new System.Drawing.Size(26, 36);
             this.pbplayer45.TabIndex = 82;
@@ -703,7 +711,7 @@
             // 
             this.pbplayer44.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbplayer44.BackgroundImage")));
             this.pbplayer44.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbplayer44.Location = new System.Drawing.Point(892, 296);
+            this.pbplayer44.Location = new System.Drawing.Point(902, 335);
             this.pbplayer44.Name = "pbplayer44";
             this.pbplayer44.Size = new System.Drawing.Size(26, 36);
             this.pbplayer44.TabIndex = 81;
@@ -714,7 +722,7 @@
             // 
             this.pbplayer43.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbplayer43.BackgroundImage")));
             this.pbplayer43.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbplayer43.Location = new System.Drawing.Point(860, 296);
+            this.pbplayer43.Location = new System.Drawing.Point(870, 335);
             this.pbplayer43.Name = "pbplayer43";
             this.pbplayer43.Size = new System.Drawing.Size(26, 36);
             this.pbplayer43.TabIndex = 80;
@@ -725,7 +733,7 @@
             // 
             this.pbplayer42.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbplayer42.BackgroundImage")));
             this.pbplayer42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbplayer42.Location = new System.Drawing.Point(828, 296);
+            this.pbplayer42.Location = new System.Drawing.Point(838, 335);
             this.pbplayer42.Name = "pbplayer42";
             this.pbplayer42.Size = new System.Drawing.Size(26, 36);
             this.pbplayer42.TabIndex = 79;
@@ -736,7 +744,7 @@
             // 
             this.pbplayer41.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbplayer41.BackgroundImage")));
             this.pbplayer41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbplayer41.Location = new System.Drawing.Point(796, 296);
+            this.pbplayer41.Location = new System.Drawing.Point(806, 335);
             this.pbplayer41.Name = "pbplayer41";
             this.pbplayer41.Size = new System.Drawing.Size(26, 36);
             this.pbplayer41.TabIndex = 78;
@@ -787,7 +795,7 @@
             this.ckplayer4.BackColor = System.Drawing.Color.Transparent;
             this.ckplayer4.BackgroundImage = global::BlackJack.Properties.Resources.CHECK;
             this.ckplayer4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ckplayer4.Location = new System.Drawing.Point(743, 244);
+            this.ckplayer4.Location = new System.Drawing.Point(753, 283);
             this.ckplayer4.Name = "ckplayer4";
             this.ckplayer4.Size = new System.Drawing.Size(50, 50);
             this.ckplayer4.TabIndex = 86;
@@ -840,7 +848,7 @@
             this.ketQuaPlayer4.BackColor = System.Drawing.Color.Transparent;
             this.ketQuaPlayer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ketQuaPlayer4.ForeColor = System.Drawing.Color.White;
-            this.ketQuaPlayer4.Location = new System.Drawing.Point(727, 255);
+            this.ketQuaPlayer4.Location = new System.Drawing.Point(737, 294);
             this.ketQuaPlayer4.Name = "ketQuaPlayer4";
             this.ketQuaPlayer4.Size = new System.Drawing.Size(66, 24);
             this.ketQuaPlayer4.TabIndex = 90;
@@ -860,6 +868,54 @@
             this.ketQua.Text = "label5";
             this.ketQua.Visible = false;
             // 
+            // pBc2
+            // 
+            this.pBc2.BackColor = System.Drawing.Color.Transparent;
+            this.pBc2.BackgroundImage = global::BlackJack.Properties.Resources.Asset_8;
+            this.pBc2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBc2.Location = new System.Drawing.Point(207, 78);
+            this.pBc2.Name = "pBc2";
+            this.pBc2.Size = new System.Drawing.Size(57, 46);
+            this.pBc2.TabIndex = 92;
+            this.pBc2.TabStop = false;
+            this.pBc2.Visible = false;
+            // 
+            // pBc1
+            // 
+            this.pBc1.BackColor = System.Drawing.Color.Transparent;
+            this.pBc1.BackgroundImage = global::BlackJack.Properties.Resources.Asset_8;
+            this.pBc1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBc1.Location = new System.Drawing.Point(151, 238);
+            this.pBc1.Name = "pBc1";
+            this.pBc1.Size = new System.Drawing.Size(57, 46);
+            this.pBc1.TabIndex = 93;
+            this.pBc1.TabStop = false;
+            this.pBc1.Visible = false;
+            // 
+            // pBc3
+            // 
+            this.pBc3.BackColor = System.Drawing.Color.Transparent;
+            this.pBc3.BackgroundImage = global::BlackJack.Properties.Resources.Asset_8___Copy;
+            this.pBc3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBc3.Location = new System.Drawing.Point(622, 78);
+            this.pBc3.Name = "pBc3";
+            this.pBc3.Size = new System.Drawing.Size(57, 46);
+            this.pBc3.TabIndex = 94;
+            this.pBc3.TabStop = false;
+            this.pBc3.Visible = false;
+            // 
+            // pBc4
+            // 
+            this.pBc4.BackColor = System.Drawing.Color.Transparent;
+            this.pBc4.BackgroundImage = global::BlackJack.Properties.Resources.Asset_8___Copy;
+            this.pBc4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBc4.Location = new System.Drawing.Point(805, 231);
+            this.pBc4.Name = "pBc4";
+            this.pBc4.Size = new System.Drawing.Size(57, 46);
+            this.pBc4.TabIndex = 95;
+            this.pBc4.TabStop = false;
+            this.pBc4.Visible = false;
+            // 
             // Multi_Client
             // 
             this.AcceptButton = this.btnSend;
@@ -867,6 +923,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::BlackJack.Properties.Resources.BackGround_Table_1x;
             this.ClientSize = new System.Drawing.Size(972, 577);
+            this.Controls.Add(this.pBc4);
+            this.Controls.Add(this.pBc3);
+            this.Controls.Add(this.pBc1);
+            this.Controls.Add(this.pBc2);
             this.Controls.Add(this.ketQua);
             this.Controls.Add(this.ketQuaPlayer4);
             this.Controls.Add(this.ketQuaPlayer3);
@@ -962,6 +1022,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ckplayer4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBc4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1032,5 +1096,9 @@
         private System.Windows.Forms.Label ketQuaPlayer3;
         private System.Windows.Forms.Label ketQuaPlayer4;
         private System.Windows.Forms.Label ketQua;
+        private System.Windows.Forms.PictureBox pBc2;
+        private System.Windows.Forms.PictureBox pBc1;
+        private System.Windows.Forms.PictureBox pBc3;
+        private System.Windows.Forms.PictureBox pBc4;
     }
 }
