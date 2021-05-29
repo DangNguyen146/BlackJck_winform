@@ -153,6 +153,7 @@ namespace BlackJack
                                 card.AddIdCard(message.Substring(3));
                                 user.addCard(card);
                                 DrawCard(card, user.getNumberCard(1));
+                                Thread.Sleep(50);
                                 client.Send(Serialize("11:2"));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
@@ -192,6 +193,7 @@ namespace BlackJack
                                 card.AddIdCard(message.Substring(3));
                                 user.addCard(card);
                                 DrawCard(card, user.getNumberCard(1));
+                                Thread.Sleep(50);
                                 client.Send(Serialize("11:" + user.getNumberCard().ToString()));
                                 this.BeginInvoke((MethodInvoker)delegate            //How do I update the GUI from another thread?
                                 {
@@ -210,6 +212,7 @@ namespace BlackJack
                                     waitingLoading.Visible = false;
                                     btnDan.Visible = true;
                                 });
+                                Thread.Sleep(50);
                                 client.Send(Serialize("20:"));
                                 break;
                             }
@@ -471,48 +474,65 @@ namespace BlackJack
                                 int i = 1;
                                 while (temp != "")
                                 {
-                                    cards.AddIdCard(temp.Substring(0, 2));
+                                    if (temp.Substring(0, 2) == "10")
+                                        cards.AddIdCard(temp.Substring(0, 3));
+                                    else
+                                        cards.AddIdCard(temp.Substring(0, 2));
                                     DrawCardCai(cards, i, 1);
                                     i++;
-                                    temp = temp.Substring(2);
+                                    if (temp.Substring(0, 2) == "10")
+                                        temp = temp.Substring(3);
+                                    else
+                                        temp = temp.Substring(2);
                                 }
                                 break;
                             }
                         case "41:":
                             {
                                 string temp = user.getAllCard();
+                                Thread.Sleep(50);
                                 client.Send(Serialize("41:"+ temp));
                                 break;
                             }
                         case "42:":
                             {
                                 string temp = user.getAllCard();
+                                Thread.Sleep(50);
                                 client.Send(Serialize("42:" + temp));
                                 break;
                             }
                         case "43:":
                             {
                                 string temp = user.getAllCard();
+                                Thread.Sleep(50);
                                 client.Send(Serialize("43:" + temp)) ;
                                 break;
                             }
                         case "44:":
                             {
                                 string temp = user.getAllCard();
+                                Thread.Sleep(50);
                                 client.Send(Serialize("44:" + temp));
                                 break;
                             }
                         case "51:":
                             {
+                                
                                 string temp = message.Substring(3);
                                 Card cards = new Card();
                                 int i = 1;
                                 while (temp != "")
                                 {
-                                    cards.AddIdCard(temp.Substring(0, 2));
+                                    if (temp.Substring(0, 2) == "10")
+                                        cards.AddIdCard(temp.Substring(0, 3));
+                                    else
+                                        cards.AddIdCard(temp.Substring(0, 2));
                                     DrawCardCai(cards, i, 1);
                                     i++;
-                                    temp = temp.Substring(2);
+                                    if (temp.Substring(0, 2) == "10")
+                                        temp = temp.Substring(3);
+                                    else
+                                        temp = temp.Substring(2);
                                 }
                                 break;
                             }
@@ -523,10 +543,16 @@ namespace BlackJack
                                 Card card = new Card();
                                 while (temp != "")
                                 {
-                                    card.AddIdCard(temp.Substring(0, 2));
+                                    if (temp.Substring(0, 2) == "10")
+                                        card.AddIdCard(temp.Substring(0, 3));
+                                    else
+                                        card.AddIdCard(temp.Substring(0, 2));
                                     DrawCardCai(card, i, 2);
                                     i++;
-                                    temp = temp.Substring(2);
+                                    if (temp.Substring(0, 2) == "10")
+                                        temp = temp.Substring(3);
+                                    else
+                                        temp = temp.Substring(2);
                                 }
                                 break;
                             }
@@ -537,10 +563,16 @@ namespace BlackJack
                                 Card card = new Card();
                                 while (temp != "")
                                 {
-                                    card.AddIdCard(temp.Substring(0, 2));
+                                    if (temp.Substring(0, 2) == "10")
+                                        card.AddIdCard(temp.Substring(0, 3));
+                                    else
+                                        card.AddIdCard(temp.Substring(0, 2));
                                     DrawCardCai(card, i, 3);
                                     i++;
-                                    temp = temp.Substring(2);
+                                    if (temp.Substring(0, 2) == "10")
+                                        temp = temp.Substring(3);
+                                    else
+                                        temp = temp.Substring(2);
                                 }
                                 break;
                             }
@@ -551,10 +583,16 @@ namespace BlackJack
                                 Card card = new Card();
                                 while (temp != "")
                                 {
-                                    card.AddIdCard(temp.Substring(0, 2));
+                                    if (temp.Substring(0, 2) == "10")
+                                        card.AddIdCard(temp.Substring(0, 3));
+                                    else
+                                        card.AddIdCard(temp.Substring(0, 2));
                                     DrawCardCai(card, i, 4);
                                     i++;
-                                    temp = temp.Substring(2);
+                                    if (temp.Substring(0, 2) == "10")
+                                        temp = temp.Substring(3);
+                                    else
+                                        temp = temp.Substring(2);
                                 }
                                 break;
                             }
@@ -570,10 +608,16 @@ namespace BlackJack
                                         temp = temp.Substring(15);
                                         while (temp != "")
                                         {
-                                            card.AddIdCard(temp.Substring(0, 2));
+                                            if (temp.Substring(0, 2) == "10")
+                                                card.AddIdCard(temp.Substring(0, 3));
+                                            else
+                                                card.AddIdCard(temp.Substring(0, 2));
                                             DrawCardCai(card, i, 1);
                                             i++;
-                                            temp = temp.Substring(2);
+                                            if (temp.Substring(0, 2) == "10")
+                                                temp = temp.Substring(3);
+                                            else
+                                                temp = temp.Substring(2);
                                         }
                                     }
                                     else if (temp.Substring(0, 15) == txtPlayer2.Text)
@@ -581,10 +625,16 @@ namespace BlackJack
                                         temp = temp.Substring(15);
                                         while (temp != "")
                                         {
-                                            card.AddIdCard(temp.Substring(0, 2));
+                                            if (temp.Substring(0, 2) == "10")
+                                                card.AddIdCard(temp.Substring(0, 3));
+                                            else
+                                                card.AddIdCard(temp.Substring(0, 2));
                                             DrawCardCai(card, i, 2);
                                             i++;
-                                            temp = temp.Substring(2);
+                                            if (temp.Substring(0, 2) == "10")
+                                                temp = temp.Substring(3);
+                                            else
+                                                temp = temp.Substring(2);
                                         }
                                     }
                                     else if (temp.Substring(0, 15) == txtPlayer3.Text)
@@ -592,10 +642,16 @@ namespace BlackJack
                                         temp = temp.Substring(15);
                                         while (temp != "")
                                         {
-                                            card.AddIdCard(temp.Substring(0, 2));
+                                            if (temp.Substring(0, 2) == "10")
+                                                card.AddIdCard(temp.Substring(0, 3));
+                                            else
+                                                card.AddIdCard(temp.Substring(0, 2));
                                             DrawCardCai(card, i, 3);
                                             i++;
-                                            temp = temp.Substring(2);
+                                            if (temp.Substring(0, 2) == "10")
+                                                temp = temp.Substring(3);
+                                            else
+                                                temp = temp.Substring(2);
                                         }
                                     }
                                     else if (temp.Substring(0, 15) == txtPlayer4.Text)
@@ -603,10 +659,16 @@ namespace BlackJack
                                         temp = temp.Substring(15);
                                         while (temp != "")
                                         {
-                                            card.AddIdCard(temp.Substring(0, 2));
+                                            if (temp.Substring(0, 2) == "10")
+                                                card.AddIdCard(temp.Substring(0, 3));
+                                            else
+                                                card.AddIdCard(temp.Substring(0, 2));
                                             DrawCardCai(card, i, 4);
                                             i++;
-                                            temp = temp.Substring(2);
+                                            if (temp.Substring(0, 2) == "10")
+                                                temp = temp.Substring(3);
+                                            else
+                                                temp = temp.Substring(2);
                                         }
                                     }
                                 }
@@ -1278,38 +1340,39 @@ namespace BlackJack
 
         private void ckplayer1_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer1.Text;
-            client.Send(Serialize("31:" + text));
-            Thread.Sleep(20);
-            text =  user.getAllCard();
+
+            string text =  user.getAllCard();
             client.Send(Serialize("35:"+text));
+            Thread.Sleep(120);
+            text = txtPlayer1.Text;
+            client.Send(Serialize("31:" + text));
         }
 
         private void ckplayer2_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer2.Text;
-            client.Send(Serialize("32:" + text));
-            Thread.Sleep(20);
-            text = user.getAllCard();
+            string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
+            Thread.Sleep(120);
+            text = txtPlayer2.Text;
+            client.Send(Serialize("32:" + text));
         }
 
         private void ckplayer3_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer3.Text;
-            client.Send(Serialize("33:" + text));
-            Thread.Sleep(20);
-            text = user.getAllCard();
+            string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
+            Thread.Sleep(120);
+            text = txtPlayer3.Text;
+            client.Send(Serialize("33:" + text));
         }
 
         private void ckplayer4_Click(object sender, EventArgs e)
         {
-            string text = txtPlayer4.Text;
-            client.Send(Serialize("34:" + text));
-            Thread.Sleep(20);
-            text = user.getAllCard();
+            string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
+            Thread.Sleep(120);
+            text = txtPlayer4.Text;
+            client.Send(Serialize("34:" + text));
         }
     }
 }

@@ -253,6 +253,7 @@ namespace BlackJack
                             }
                         case "11:":
                             {
+                                AddMessage("update CLIENT SET NUMOFCARD = " + message.Substring(3) + " WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("update CLIENT SET NUMOFCARD = "+message.Substring(3)+" WHERE IP='"+IP+"'", conn);
                                 
                                 var table = new DataTable();
@@ -271,11 +272,13 @@ namespace BlackJack
                             }
                         case "12:":
                             {
+                                AddMessage("update CLIENT SET DAN = 1 WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("update CLIENT SET DAN = 1 WHERE IP='" + IP + "'", conn);
                                 var table = new DataTable();
                                 dap.Fill(table);
 
                                 //CHECK DAN HET CHUA
+                                AddMessage("SELECT COUNT(*) FROM Client WHERE DAN=1");
                                 dap = new SqlDataAdapter("SELECT COUNT(*) FROM Client WHERE DAN=1", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
@@ -289,6 +292,7 @@ namespace BlackJack
                                             item.Send(Serialize("01: Xét bài"));
                                         }
                                     }
+                                    AddMessage("30:");
                                     clientList[0].Send(Serialize("30:"));
                                 }
 
@@ -306,12 +310,15 @@ namespace BlackJack
                                         if (i != null && item != i)
                                             temp += i.RemoteEndPoint.ToString() + "2";
                                     }
+                                    AddMessage("20:" + (tempSL).ToString() + temp);
                                     item.Send(Serialize("20:" + (tempSL).ToString() + temp));
                                     Thread.Sleep(100);
                                 }
+                                Thread.Sleep(100);
                                 foreach (Socket item in clientList)
                                 {
                                     string temp = clientList[0].RemoteEndPoint.ToString();
+                                    AddMessage("98:" + temp);
                                     item.Send(Serialize("98:" + temp));
                                 }
                                 break;
@@ -323,19 +330,23 @@ namespace BlackJack
                                 int sumUser = 0;
                                 int slCardUser = 0;
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 var table = new DataTable();
                                 dap.Fill(table);
                                 sumCai = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 slCardCai = Int32.Parse(table.Rows[0][0].ToString());
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 sumUser = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
@@ -344,11 +355,15 @@ namespace BlackJack
                                 int ketQua = (KetQua(sumCai, sumUser, slCardCai, slCardUser));
                                 if (ketQua == 1)
                                 {
+                                    AddMessage("61:01");
                                     client.Send(Serialize("61:01"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:-1");
                                             item.Send(Serialize("31:-1"));
+                                        }
                                     }
                                 }
                                 if (ketQua == 0)
@@ -357,24 +372,35 @@ namespace BlackJack
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
-                                            item.Send(Serialize("31:01"));
+                                        {
+                                            AddMessage("31:00");
+                                            item.Send(Serialize("31:00"));
+                                        }
                                     }
                                 }
                                 if (ketQua == -1)
                                 {
+                                    AddMessage("61:-1");
                                     client.Send(Serialize("61:-1"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:01");
                                             item.Send(Serialize("31:01"));
+                                        }
                                     }
                                 }
                                 Thread.Sleep(100);
                                 foreach (Socket item in clientList)
                                 {
                                     if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                    {
+                                        AddMessage("41:");
                                         item.Send(Serialize("41:"));
+                                    }
                                 }
+                                Thread.Sleep(130);
                                 break;
                             }
                         case "32:":
@@ -384,19 +410,23 @@ namespace BlackJack
                                 int sumUser = 0;
                                 int slCardUser = 0;
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 var table = new DataTable();
                                 dap.Fill(table);
                                 sumCai = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 slCardCai = Int32.Parse(table.Rows[0][0].ToString());
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 sumUser = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
@@ -405,29 +435,41 @@ namespace BlackJack
                                 int ketQua = (KetQua(sumCai, sumUser, slCardCai, slCardUser));
                                 if (ketQua == 1)
                                 {
+                                    AddMessage("62:01");
                                     client.Send(Serialize("62:01"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:-1");
                                             item.Send(Serialize("31:-1"));
+                                        }
                                     }
                                 }
                                 if (ketQua == 0)
                                 {
+                                    AddMessage("64:00");
                                     client.Send(Serialize("62:00"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
-                                            item.Send(Serialize("31:01"));
+                                        {
+                                            AddMessage("31:00");
+                                            item.Send(Serialize("31:00"));
+                                        }
                                     }
                                 }
                                 if (ketQua == -1)
                                 {
+                                    AddMessage("62:-1");
                                     client.Send(Serialize("62:-1"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:01");
                                             item.Send(Serialize("31:01"));
+                                        }
                                     }
                                 }
 
@@ -435,9 +477,12 @@ namespace BlackJack
                                 foreach (Socket item in clientList)
                                 {
                                     if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                    {
+                                        AddMessage("42:");
                                         item.Send(Serialize("42:"));
+                                    }
                                 }
-                                
+                                Thread.Sleep(130);
                                 break;
                             }
                         case "33:":
@@ -447,19 +492,23 @@ namespace BlackJack
                                 int sumUser = 0;
                                 int slCardUser = 0;
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 var table = new DataTable();
                                 dap.Fill(table);
                                 sumCai = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 slCardCai = Int32.Parse(table.Rows[0][0].ToString());
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 sumUser = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
@@ -468,29 +517,41 @@ namespace BlackJack
                                 int ketQua = (KetQua(sumCai, sumUser, slCardCai, slCardUser));
                                 if (ketQua == 1)
                                 {
+                                    AddMessage("63:01");
                                     client.Send(Serialize("63:01"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:-1");
                                             item.Send(Serialize("31:-1"));
+                                        }
                                     }
                                 }
                                 if (ketQua == 0)
                                 {
+                                    AddMessage("63:00");
                                     client.Send(Serialize("63:00"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
-                                            item.Send(Serialize("31:01"));
+                                        {
+                                            AddMessage("31:00");
+                                            item.Send(Serialize("31:00"));
+                                        }
                                     }
                                 }
                                 if (ketQua == -1)
                                 {
+                                    AddMessage("63:-1");
                                     client.Send(Serialize("63:-1"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:01");
                                             item.Send(Serialize("31:01"));
+                                        }
                                     }
                                 }
 
@@ -498,9 +559,12 @@ namespace BlackJack
                                 foreach (Socket item in clientList)
                                 {
                                     if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                    {
+                                        AddMessage("43:");
                                         item.Send(Serialize("43:"));
+                                    }
                                 }
-                                
+                                Thread.Sleep(130);
                                 break;
                             }
                         case "34:":
@@ -510,19 +574,23 @@ namespace BlackJack
                                 int sumUser = 0;
                                 int slCardUser = 0;
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'");
                                 var dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 var table = new DataTable();
                                 dap.Fill(table);
                                 sumCai = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + IP + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 slCardCai = Int32.Parse(table.Rows[0][0].ToString());
 
+                                AddMessage("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT SUMCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
                                 sumUser = Int32.Parse(table.Rows[0][0].ToString());
+                                AddMessage("SELECT NUMOFCARD FROM Client WHERE IP = '" + message.Substring(3) + "'");
                                 dap = new SqlDataAdapter("SELECT NUMOFCARD FROM Client WHERE IP='" + message.Substring(3) + "'", conn);
                                 table = new DataTable();
                                 dap.Fill(table);
@@ -531,29 +599,41 @@ namespace BlackJack
                                 int ketQua = (KetQua(sumCai, sumUser, slCardCai, slCardUser));
                                 if (ketQua == 1)
                                 {
+                                    AddMessage("64:01");
                                     client.Send(Serialize("64:01"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:-1");
                                             item.Send(Serialize("31:-1"));
+                                        }
                                     }
                                 }
                                 if (ketQua == 0)
                                 {
+                                    AddMessage("64:00");
                                     client.Send(Serialize("64:00"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
-                                            item.Send(Serialize("31:01"));
+                                        {
+                                            AddMessage("31:00");
+                                            item.Send(Serialize("31:00"));
+                                        }
                                     }
                                 }
                                 if (ketQua == -1)
                                 {
+                                    AddMessage("64:-1");
                                     client.Send(Serialize("64:-1"));
                                     foreach (Socket item in clientList)
                                     {
                                         if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                        {
+                                            AddMessage("31:01");
                                             item.Send(Serialize("31:01"));
+                                        }
                                     }
                                 }
 
@@ -561,15 +641,18 @@ namespace BlackJack
                                 foreach (Socket item in clientList)
                                 {
                                     if (item != null && item.RemoteEndPoint.ToString() == message.Substring(3))
+                                    {
+                                        AddMessage("44:");
                                         item.Send(Serialize("44:"));
+                                    }
                                 }
-                                
+                                Thread.Sleep(130);
                                 break;
                             }
                         case "35:":
                             {
                                 tempCai = message.Substring(3);
-
+                                AddMessage(tempCai);
                                 break;
                             }
                         case "36:":
@@ -589,24 +672,31 @@ namespace BlackJack
                             }
                         case "41:":
                             {
+                                Thread.Sleep(140);
+                                AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("51:" + message.Substring(3)));
                                     break;
                             }
                         case "42:":
                             {
+                                Thread.Sleep(140);
+                                AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("52:" + message.Substring(3)));
                                 
                                 break;
                             }
                         case "43:":
                             {
+                                Thread.Sleep(140);
+                                AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("53:" + message.Substring(3)));
                                 
                                 break;
                             }
                         case "44:":
                             {
-                                Thread.Sleep(50);
+                                Thread.Sleep(140);
+                                AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("54:" + message.Substring(3)));
                                 break;
                             }
