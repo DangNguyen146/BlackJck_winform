@@ -657,9 +657,7 @@ namespace BlackJack
                             }
                         case "36:":
                             {
-                                Thread.Sleep(150);
                                 client.Send(Serialize("36:"+ tempCai));
-                                Thread.Sleep(460);
                                 string temp = IP + message.Substring(3);
                                 foreach (Socket item in clientList)
                                 {
@@ -672,14 +670,12 @@ namespace BlackJack
                             }
                         case "41:":
                             {
-                                Thread.Sleep(140);
                                 AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("51:" + message.Substring(3)));
                                     break;
                             }
                         case "42:":
                             {
-                                Thread.Sleep(140);
                                 AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("52:" + message.Substring(3)));
                                 
@@ -687,7 +683,6 @@ namespace BlackJack
                             }
                         case "43:":
                             {
-                                Thread.Sleep(140);
                                 AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("53:" + message.Substring(3)));
                                 
@@ -695,7 +690,6 @@ namespace BlackJack
                             }
                         case "44:":
                             {
-                                Thread.Sleep(140);
                                 AddMessage("51:" + message.Substring(3));
                                 clientList[0].Send(Serialize("54:" + message.Substring(3)));
                                 break;

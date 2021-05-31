@@ -1343,7 +1343,6 @@ namespace BlackJack
 
             string text =  user.getAllCard();
             client.Send(Serialize("35:"+text));
-            Thread.Sleep(120);
             text = txtPlayer1.Text;
             client.Send(Serialize("31:" + text));
         }
@@ -1352,7 +1351,6 @@ namespace BlackJack
         {
             string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
-            Thread.Sleep(120);
             text = txtPlayer2.Text;
             client.Send(Serialize("32:" + text));
         }
@@ -1361,7 +1359,6 @@ namespace BlackJack
         {
             string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
-            Thread.Sleep(120);
             text = txtPlayer3.Text;
             client.Send(Serialize("33:" + text));
         }
@@ -1370,7 +1367,6 @@ namespace BlackJack
         {
             string text = user.getAllCard();
             client.Send(Serialize("35:" + text));
-            Thread.Sleep(120);
             text = txtPlayer4.Text;
             client.Send(Serialize("34:" + text));
         }
